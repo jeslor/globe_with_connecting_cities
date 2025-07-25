@@ -27,7 +27,7 @@ A captivating React application that visualizes global connections with an inter
 ## Demo
 
 (Once deployed, you can add a link here)
-You can view a live demo [here](YOUR_DEMO_LINK_HERE) (Coming Soon!).
+You can view a live demo [here](https://globe-with-connecting-cities.vercel.app/) .
 
 ## Technologies Used
 
