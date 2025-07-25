@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useEffect } from "react";
+import { useMemo, useRef, useEffect } from "react";
 import { Line } from "@react-three/drei";
 import * as THREE from "three";
 import {

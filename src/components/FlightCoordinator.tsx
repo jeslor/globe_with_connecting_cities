@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import type { CityWithPosition } from "../utils/globeUtils";
 import { cities } from "../utils/globeUtils";
