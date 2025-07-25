@@ -1,69 +1,81 @@
-# React + TypeScript + Vite
+# Interactive 3D Globe with Animated Flight Paths
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A captivating React application that visualizes global connections with an interactive 3D globe. Built with **React Three Fiber** and **Drei**, this project showcases smooth animations of flight paths between various cities around the world.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Interactive 3D Globe with Animated Flight Paths](#interactive-3d-globe-with-animated-flight-paths)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Demo](#demo)
+  - [Technologies Used](#technologies-used)
+  - [Setup and Installation](#setup-and-installation)
+  - [Usage](#usage)
+  - [Project Structure](#project-structure)
+  - [Contributing](#contributing)
+  - [License](#license)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Interactive 3D Globe:** Spin, zoom, and pan around a high-resolution Earth texture using `OrbitControls` for a seamless user experience.
+- **Dynamic Flight Paths:** Curved lines animate between a diverse set of global cities, simulating real-time connections.
+- **Flight Lifecycle Management:** Each flight path grows into view, stays visible, and then elegantly fades out, replaced by new, randomly generated routes to maintain a continuous and engaging visual flow.
+- **Performance Optimized:** Leverages React Three Fiber's declarative nature and Three.js best practices for efficient rendering and smooth animations, even with multiple concurrent flight path effects.
+- **City Markers:** Clearly marked city points on the globe for easy identification and visual anchoring of the flight paths.
+- **Responsive Design:** Adapts to different screen sizes, though interaction is best on larger screens.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Demo
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+(Once deployed, you can add a link here)
+You can view a live demo [here](YOUR_DEMO_LINK_HERE) (Coming Soon!).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Technologies Used
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **React**
+- **React Three Fiber (`@react-three/fiber`)**: React renderer for Three.js.
+- **Drei (`@react-three/drei`)**: A collection of useful helpers and abstractions for React Three Fiber.
+- **Three.js**: The underlying 3D graphics library.
+- **TypeScript**: For type safety and better code organization.
+- **Vite** (or Create React App/Next.js if applicable): For project bundling and development server.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Setup and Installation
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+To get this project up and running on your local machine, follow these steps:
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone [https://github.com/JESLOR/globe_with_connecting_cities.git](https://github.com/jeslor/globe_with_connecting_cities.git)
+    cd YOUR_REPO_NAME
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+3.  **Prepare assets:**
+    Ensure you have an `images/textures/earth.jpg` file in your `public` directory (or wherever your build system serves static assets). The current code expects it at `/images/textures/earth.jpg`. You can use a public domain earth texture or create your own.
+
+    Example path: `public/images/textures/earth.jpg`
+
+4.  **Run the development server:**
+
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
+
+    The application should now be running in your browser, typically at `http://localhost:5173` (Vite default) or `http://localhost:3000` (Create React App default).
+
+## Usage
+
+- **Spin the Globe:** Click and drag anywhere on the globe to rotate it and explore different regions.
+- **Observe Flight Paths:** Watch as animated lines connect various cities, appearing, growing, and fading dynamically.
+- **Zoom:** Use your mouse wheel (scroll) to zoom in and out of the globe.
+
+## Project Structure
