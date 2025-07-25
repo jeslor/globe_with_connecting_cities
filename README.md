@@ -45,8 +45,8 @@ To get this project up and running on your local machine, follow these steps:
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/JESLOR/globe_with_connecting_cities.git](https://github.com/jeslor/globe_with_connecting_cities.git)
-    cd YOUR_REPO_NAME
+    git clone https://github.com/jeslor/globe_with_connecting_cities.git
+    cd globe_with_connecting_cities
     ```
 
 2.  **Install dependencies:**
