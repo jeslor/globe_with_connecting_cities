@@ -18,8 +18,8 @@ export default function GlobeWithMultipleCitiesConnecting() {
       <SceneSetup />
 
       {/* Lights provide illumination for the scene */}
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 5, 5]} />
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[5, 5, 5]} intensity={2} />
 
       {/* Earth component renders the globe itself, and its children (FlightCoordinator) are rendered relative to it */}
       <Earth>
