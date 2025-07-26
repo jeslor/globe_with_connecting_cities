@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react"; // Ensure useState and useCallback are imported
+import { useRef, useState } from "react"; // Ensure useState and useCallback are imported
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { OrbitControls as OrbitControlsImpl } from "three-stdlib";
@@ -17,12 +17,12 @@ interface CityLabelData {
 export default function GlobeWithMultipleCitiesConnecting() {
   const orbitControlsRef = useRef<OrbitControlsImpl>(null);
   // State to hold the dynamic label data for visible cities
-  const [cityLabelsData, setCityLabelsData] = useState<CityLabelData[]>([]);
+  const [cityLabelsData] = useState<CityLabelData[]>([]);
 
   // Callback to receive updated label data from CameraUpdater
-  const handleUpdateCityLabels = useCallback((labels: CityLabelData[]) => {
-    setCityLabelsData(labels);
-  }, []);
+  // const handleUpdateCityLabels = useCallback((labels: CityLabelData[]) => {
+  //   setCityLabelsData(labels);
+  // }, []);
 
   return (
     // The main container for your app, positioning the canvas and HTML overlays
