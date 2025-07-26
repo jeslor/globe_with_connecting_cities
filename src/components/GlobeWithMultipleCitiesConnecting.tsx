@@ -6,7 +6,6 @@ import { Earth } from "./Earth";
 import { FlightCoordinator } from "./FlightCoordinator";
 import { SceneSetup } from "./SceneSetup";
 import { GLOBE_RADIUS } from "../utils/globeUtils"; // Ensure 'cities' is imported
-import { CameraUpdater } from "./CameraUpdater"; // Import the new CameraUpdater component
 
 // Define the type for the data received from CameraUpdater
 interface CityLabelData {
@@ -73,7 +72,6 @@ export default function GlobeWithMultipleCitiesConnecting() {
 
         {/* IMPORTANT: Render CameraUpdater INSIDE the Canvas.
             It uses R3F hooks to calculate 2D positions and passes them out. */}
-        <CameraUpdater onUpdateCityLabels={handleUpdateCityLabels} />
       </Canvas>
 
       {/* Render HTML labels based on the data received from CameraUpdater.

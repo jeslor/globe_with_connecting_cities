@@ -91,6 +91,7 @@ export function FlightCoordinator() {
   );
 
   useFrame((state, delta) => {
+    state.clock.getElapsedTime();
     // 'state' is the R3F state object, 'delta' is time since last frame
     setActiveFlights((prevFlights) => {
       const updatedFlights = prevFlights
@@ -132,12 +133,7 @@ export function FlightCoordinator() {
   return (
     <>
       {cities.map((city) => (
-        <CityPoint
-          key={city.name}
-          position={city.position}
-          color="yellow"
-          name={city.name}
-        />
+        <CityPoint key={city.name} position={city.position} color="yellow" />
       ))}
       {activeFlights.map((flight) => (
         <FlightPath
