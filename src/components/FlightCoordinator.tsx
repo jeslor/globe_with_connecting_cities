@@ -4,7 +4,7 @@ import type { CityWithPosition } from "../utils/globeUtils";
 import { cities } from "../utils/globeUtils";
 import { CityPoint } from "./CityPoint";
 import { FlightPath } from "./FlightPath";
-import * as THREE from "three"; // Import THREE for Vector3, Frustum, Matrix4
+// No need for THREE import or DisplayedCity interface here anymore
 
 interface ActiveFlight {
   id: number;
@@ -16,19 +16,11 @@ interface ActiveFlight {
   opacity: number;
 }
 
-export interface DisplayedCity {
-  name: string;
-  position: { x: number; y: number }; // 2D screen position
-  timestamp: number; // For fading out
-}
+// Removed the DisplayedCity interface from this file.
+// Removed FlightCoordinatorProps as onCityPopup is no longer passed.
 
-const DISPLAY_DURATION = 2000; // milliseconds for city name to be visible
-
-interface FlightCoordinatorProps {
-  onCityPopup: (city: DisplayedCity | null) => void;
-}
-
-export function FlightCoordinator({ onCityPopup }: FlightCoordinatorProps) {
+export function FlightCoordinator() {
+  // No props needed for city pop-ups
   const MAX_ACTIVE_FLIGHTS = 20;
   const FADE_OUT_DURATION = 0.6;
   const FADE_IN_DURATION = 0.4;
@@ -38,12 +30,7 @@ export function FlightCoordinator({ onCityPopup }: FlightCoordinatorProps) {
   const [activeFlights, setActiveFlights] = useState<ActiveFlight[]>([]);
   const nextFlightId = useRef(0);
 
-  // Ref to hold the candidate city for popup, regardless of its current visibility
-  const candidateCityForPopup = useRef<{
-    name: string;
-    position3D: THREE.Vector3;
-    timestamp: number;
-  } | null>(null);
+  // Removed candidateCityForPopup ref as it's no longer needed
 
   const addNewFlight = useCallback(() => {
     if (
@@ -88,7 +75,8 @@ export function FlightCoordinator({ onCityPopup }: FlightCoordinatorProps) {
   }, [addNewFlight, activeFlights.length]);
 
   const handleFlightGrowthComplete = useCallback(
-    (id: number, arrivedCity: CityWithPosition) => {
+    (id: number) => {
+      // Removed 'arrivedCity' parameter
       setActiveFlights((prevFlights) =>
         prevFlights.map((flight) =>
           flight.id === id
@@ -96,18 +84,14 @@ export function FlightCoordinator({ onCityPopup }: FlightCoordinatorProps) {
             : flight
         )
       );
-      // Set the candidate city for popup, storing its 3D position and timestamp
-      candidateCityForPopup.current = {
-        name: arrivedCity.name,
-        position3D: arrivedCity.position,
-        timestamp: Date.now(),
-      };
+      // Removed any logic related to setting pop-up cities
       addNewFlight();
     },
     [addNewFlight]
   );
 
-  useFrame(({ camera, gl }, delta) => {
+  useFrame((state, delta) => {
+    // 'state' is the R3F state object, 'delta' is time since last frame
     setActiveFlights((prevFlights) => {
       const updatedFlights = prevFlights
         .map((flight) => {
@@ -142,73 +126,18 @@ export function FlightCoordinator({ onCityPopup }: FlightCoordinatorProps) {
       return updatedFlights;
     });
 
-    let currentCityIsVisibleThisFrame = false; // Flag to track visibility for current frame
-
-    if (candidateCityForPopup.current) {
-      const cityData = candidateCityForPopup.current;
-      const cityPosition3D = cityData.position3D;
-
-      // --- Perform Visibility Checks ---
-      // 1. Update camera frustum (crucial for accurate containsPoint check)
-      camera.updateMatrixWorld(); // Ensure camera's world matrix is up-to-date
-      const frustum = new THREE.Frustum();
-      const projScreenMatrix = new THREE.Matrix4();
-      projScreenMatrix.multiplyMatrices(
-        camera.projectionMatrix,
-        camera.matrixWorldInverse
-      );
-      frustum.setFromProjectionMatrix(projScreenMatrix);
-
-      // 2. Check if the city's 3D point is within the camera's view frustum
-      const isInFrustum = frustum.containsPoint(cityPosition3D);
-
-      // 3. Check if the city is on the "front" side of the globe from the camera's perspective
-      // Calculate vector from camera to city
-      const cameraToCityVec = new THREE.Vector3().subVectors(
-        cityPosition3D,
-        camera.position
-      );
-      // Get the city's normal (its normalized position vector for a globe centered at origin)
-      const cityNormal = cityPosition3D.clone().normalize();
-      // If dot product > 0, the city is generally facing the camera
-      const isFacingCamera = cameraToCityVec.dot(cityNormal) > 0;
-
-      const combinedVisibility = isInFrustum && isFacingCamera;
-
-      // If visible, calculate screen position and send data to parent
-      if (combinedVisibility) {
-        const screenPosition = new THREE.Vector3();
-        screenPosition.copy(cityPosition3D);
-        screenPosition.project(camera); // Project 3D world coordinates to NDC
-
-        const x = (screenPosition.x * 0.5 + 0.5) * gl.domElement.clientWidth;
-        const y = (-screenPosition.y * 0.5 + 0.5) * gl.domElement.clientHeight;
-
-        onCityPopup({
-          name: cityData.name,
-          position: { x, y },
-          timestamp: cityData.timestamp,
-        });
-        currentCityIsVisibleThisFrame = true; // Set flag
-      }
-
-      // Hide the candidate city if its display duration has passed
-      if (Date.now() - cityData.timestamp > DISPLAY_DURATION) {
-        candidateCityForPopup.current = null;
-      }
-    }
-
-    // If there's no candidate city, or if the candidate city is not visible this frame,
-    // ensure the popup in the parent is hidden.
-    if (!candidateCityForPopup.current || !currentCityIsVisibleThisFrame) {
-      onCityPopup(null);
-    }
+    // All city pop-up visibility and positioning logic removed from here
   });
 
   return (
     <>
       {cities.map((city) => (
-        <CityPoint key={city.name} position={city.position} color="yellow" />
+        <CityPoint
+          key={city.name}
+          position={city.position}
+          color="yellow"
+          name={city.name}
+        />
       ))}
       {activeFlights.map((flight) => (
         <FlightPath
@@ -218,12 +147,11 @@ export function FlightCoordinator({ onCityPopup }: FlightCoordinatorProps) {
           end={flight.to}
           progress={flight.progress}
           opacity={flight.opacity}
-          onFlightComplete={(id) => handleFlightGrowthComplete(id, flight.to)}
+          onFlightComplete={(id) => handleFlightGrowthComplete(id)} // No longer passing 'arrivedCity'
           lineWidth={2}
           color={"#00ff00"}
         />
       ))}
-      {/* The HTML div for the pop-up is now rendered in App.tsx */}
     </>
   );
 }
