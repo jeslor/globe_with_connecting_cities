@@ -1,6 +1,5 @@
 // src/components/SceneSetup.tsx
 import React, { useEffect, useState } from "react";
-import { useThree } from "@react-three/fiber"; // useThree is not strictly needed for this specific logic, but often useful in SceneSetup
 import { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
 interface SceneSetupProps {
@@ -10,7 +9,6 @@ interface SceneSetupProps {
 export function SceneSetup({ controlsRef }: SceneSetupProps) {
   // We use useThree to potentially access renderer, scene, camera if needed for other setup tasks,
   // though not strictly required for just OrbitControls autoRotate.
-  const { camera } = useThree();
   const [isInteracting, setIsInteracting] = useState(false);
 
   useEffect(() => {
