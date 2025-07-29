@@ -5,7 +5,21 @@ export interface LatLon {
   lon: number;
 }
 
-export const GLOBE_RADIUS = 2.4; // Define a constant for the globe radius
+let GLOBE_RADIUS: any; // Default radius for larger screens
+const width = window.innerWidth;
+if (width < 480) {
+  // Smaller radius for mobile
+  GLOBE_RADIUS = 1; // Adjusted radius for mobile
+} else if (width < 768) {
+  // Smaller radius for mobile landscapes
+  GLOBE_RADIUS = 1.5; // Adjusted radius for mobile
+} else if (width < 1024) {
+  // Medium radius for tablets
+  GLOBE_RADIUS = 2.0; // Adjusted radius for tablets
+} else {
+  GLOBE_RADIUS = 2.4; // Default radius for larger screens
+}
+export { GLOBE_RADIUS };
 export const ARC_HEIGHT_FACTOR = 0.5; // Controls the height of the flight path arc
 
 export function latLonToVector3(
