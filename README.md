@@ -74,5 +74,3 @@ To get this project up and running on your local machine, follow these steps:
 - **Spin the Globe:** Click and drag anywhere on the globe to rotate it and explore different regions.
 - **Observe Flight Paths:** Watch as animated lines connect various cities, appearing, growing, and fading dynamically.
 - **Zoom:** Use your mouse wheel (scroll) to zoom in and out of the globe.
-
-## Project Structure
