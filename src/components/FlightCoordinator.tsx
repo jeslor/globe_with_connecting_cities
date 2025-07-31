@@ -21,7 +21,7 @@ interface ActiveFlight {
 
 export function FlightCoordinator() {
   // No props needed for city pop-ups
-  const MAX_ACTIVE_FLIGHTS = 20;
+  const MAX_ACTIVE_FLIGHTS = 32;
   const FADE_OUT_DURATION = 0.6;
   const FADE_IN_DURATION = 0.4;
   const MIN_FLIGHT_DURATION = 1.5;
