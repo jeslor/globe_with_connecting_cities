@@ -1,5 +1,7 @@
 # Interactive 3D Globe with Animated Flight Paths
 
+![UI](./src/assets/connecting_cities.jpg)
+
 A captivating React application that visualizes global connections with an interactive spinning 3D globe. Built with **React Three Fiber** and **Drei**, this project showcases smooth animations of flight paths between various cities around the world.
 
 ## Table of Contents
